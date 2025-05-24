@@ -22,6 +22,7 @@ from engine import train_one_epoch, evaluate
 os.environ['CURL_CA_BUNDLE'] = '/usr/local/share/ca-certificates/a.crt'
 
 
+
 def get_args_parser():
     parser = argparse.ArgumentParser('Set transformer detector', add_help=False)
     parser.add_argument('--lr', default=1e-4, type=float)

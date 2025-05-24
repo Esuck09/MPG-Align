@@ -10,6 +10,20 @@ from .vl_transformer import build_vl_transformer
 import copy
 # from utils.box_utils import xywh2xyxy
 
+"""
+This code is primarily based on the MedRPG implementation from:
+
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Modifications made:
+- Mulitmodal alignment module using cross-attention.
+- Integration of DETR and BERT models for visual and language processing.
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 class TransVG_ca(nn.Module):
     def __init__(self, args):
@@ -29,8 +43,11 @@ class TransVG_ca(nn.Module):
         self.visu_proj = nn.Linear(self.visumodel.num_channels, hidden_dim)
         self.text_proj = nn.Linear(self.textmodel.num_channels, hidden_dim)
 
+        ################# Modified by Isaac #################
         # Multimodal alignment module
         self.cross_attn = nn.MultiheadAttention(embed_dim=hidden_dim, num_heads=8)
+
+        #####################################################
 
         self.vl_transformer = build_vl_transformer(args)
         self.bbox_embed = MLP(hidden_dim, hidden_dim, 4, 3)
@@ -52,15 +69,18 @@ class TransVG_ca(nn.Module):
         text_src = text_src.permute(1, 0, 2)  # torch.Size([20, 8, 256])
         text_mask = text_mask.flatten(1)  # torch.Size([8, 20])
 
+        ################# Modified by Isaac #################
         aligned_visu_src, _ = self.cross_attn(query=visu_src, key=text_src, value=text_src)  # [400, 8, 256]
         aligned_text_src, _ = self.cross_attn(query=text_src, key=visu_src, value=visu_src)  # [20, 8, 256]
+        #####################################################
 
         # target regression token
         tgt_src = self.reg_token.weight.unsqueeze(1).repeat(1, bs, 1)
         tgt_mask = torch.zeros((bs, 1)).to(tgt_src.device).to(torch.bool)
 
-        # vl_src = torch.cat([tgt_src, text_src, visu_src], dim=0)  # [421, 8, 256]
+        ################# Modified by Isaac #################
         vl_src = torch.cat([tgt_src, aligned_text_src, aligned_visu_src], dim=0) 
+        #####################################################
 
         vl_mask = torch.cat([tgt_mask, text_mask, visu_mask], dim=1)
         vl_pos = self.vl_pos_embed.weight.unsqueeze(1).repeat(1, bs, 1)

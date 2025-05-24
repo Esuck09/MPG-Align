@@ -15,5 +15,13 @@ Paper is available by accessing the [PDF](https://drive.google.com/file/d/1GRO7C
 2. Or include your trained checkpoint to folder ```released_checkpoint```
 3. Run ```eval.py``` for evaluation.
 
+## References and Acknowledgements
+
+The majority of the code in this project is adapted from **MedRPG** model by Chen et al. repository: [https://github.com/eraserNut/MedRPG].
+
+### Modifications Made:
+- In models/trans_vg_ca.py modified cross attention module. 
+- Custom preprocessing for ChestXray8 dataset. (can be seen in generate_phrase.py)
+
 ## Having issue accessing the files?
 Simple! Send an email to ```qikai.work@gmail.com```
