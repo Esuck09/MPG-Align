@@ -6,6 +6,16 @@ from torchvision.transforms import Compose, ToTensor, Normalize
 import datasets.transforms as T
 from .data_loader import TransVGDataset
 
+"""
+This code is primarily based on the MedRPG implementation from:
+
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 def make_transforms(args, image_set, is_onestage=False):
     if is_onestage:

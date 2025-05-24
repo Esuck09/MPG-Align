@@ -2,6 +2,17 @@ import json
 import os
 import torch
 
+"""
+This code is primarily based on the MedRPG implementation from:
+
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
+
 ANATOMY = ['right lung', 'right upper lung zone', 'right mid lung zone', 'right lower lung zone', 'right hilar structures', 'right apical zone',
            'right costophrenic angle', 'right cardiophrenic angle', 'right hemidiaphragm', 'right clavicle', 'right cardiac silhouette', 'right atrium',
            'right upper abdomen', 'left lung', 'left upper lung zone', 'left mid lung zone', 'left lower lung zone', 'left hilar structures',

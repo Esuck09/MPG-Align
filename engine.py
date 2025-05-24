@@ -20,7 +20,16 @@ from utils.box_utils import xywh2xyxy
 from utils.misc import get_project_root
 from utils.misc import init_distributed_mode
  
+"""
+This code is primarily based on the MedRPG implementation from:
 
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 def train_one_epoch(args, model: torch.nn.Module, data_loader: Iterable, 
                     optimizer: torch.optim.Optimizer, device: torch.device, 

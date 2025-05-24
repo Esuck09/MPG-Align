@@ -3,6 +3,16 @@ from torchvision.ops.boxes import box_area
 import random
 import time
 
+"""
+This code is primarily based on the MedRPG implementation from:
+
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 def bbox_iou(box1, box2, x1y1x2y2=True):
     """

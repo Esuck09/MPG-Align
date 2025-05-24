@@ -3,7 +3,16 @@ import os
 from PIL import Image, ImageDraw
 import numpy as np
 
+"""
+This code is primarily based on the MedRPG implementation from:
 
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 def visualBBox(image_path, pred_box, bbox, output_dir):
     real_im = Image.open(image_path).convert('RGB')

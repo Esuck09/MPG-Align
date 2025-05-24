@@ -12,6 +12,16 @@ from collections import Iterable
 import torch.nn.functional as F
 from torch.autograd import Variable
 
+"""
+This code is primarily based on the MedRPG implementation from:
+
+Chen, Zhihao et al. "Medical Phrase Grounding with Region-Phrase Context Contrastive Alignment."
+MICCAI, 2023. https://arxiv.org/abs/2307.11767
+
+Original code: https://github.com/openmedlab/MedRPG
+
+Please refer to the original authors for core algorithmic contributions.
+"""
 
 class ResizePad:
     """
